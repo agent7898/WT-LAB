@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX Examples (With and Without jQuery)</title>
+
+  <!-- jQuery Library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .output {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 20px auto;
+      padding: 15px;
+      width: 60%;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>AJAX Examples (With and Without jQuery)</h2>
+
+  <!-- Buttons -->
+  <button onclick="loadTextWithoutJQuery()">a) AJAX Without jQuery</button>
+  <button id="ajaxWithJquery">b) AJAX With jQuery</button>
+  <button id="loadJsonBtn">c) getJSON() Example</button>
+  <button id="parseJsonBtn">d) parseJSON() Example</button>
+
+  <!-- Output Div -->
+  <div class="output" id="outputArea">Output will appear here...</div>
+
+  <script>
+    // -------------------------------
+    // (a) AJAX Without jQuery
+    // -------------------------------
+    function loadTextWithoutJQuery() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "data.txt", true);
+
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          document.getElementById("outputArea").innerHTML = xhr.responseText;
+        } else {
+          document.getElementById("outputArea").innerHTML = "Error loading file.";
+        }
+      };
+
+      xhr.send();
+    }
+
+    // -------------------------------
+    // (b) AJAX With jQuery (ajax())
+    // -------------------------------
+    $("#ajaxWithJquery").click(function() {
+      $.ajax({
+        url: "data.txt",
+        method: "GET",
+        success: function(response) {
+          $("#outputArea").html("<b>Loaded via jQuery AJAX:</b><br>" + response);
+        },
+        error: function() {
+          $("#outputArea").html("Error loading data.txt using jQuery.");
+        }
+      });
+    });
+
+    // -------------------------------
+    // (c) getJSON() Example
+    // -------------------------------
+    $("#loadJsonBtn").click(function() {
+      $.getJSON("data.json", function(data) {
+        let content = `
+          <b>JSON Data (using getJSON):</b><br>
+          Name: ${data.name}<br>
+          Designation: ${data.designation}<br>
+          Department: ${data.department}<br>
+          College: ${data.college}
+        `;
+        $("#outputArea").html(content);
+      });
+    });
+
+    // -------------------------------
+    // (d) parseJSON() Example
+    // -------------------------------
+    $("#parseJsonBtn").click(function() {
+      const jsonString = '{"subject": "Parallel Computing", "code": "BCS702", "semester": 7}';
+      const parsedData = $.parseJSON(jsonString);
+
+      let content = `
+        <b>Parsed JSON (using parseJSON):</b><br>
+        Subject: ${parsedData.subject}<br>
+        Code: ${parsedData.code}<br>
+        Semester: ${parsedData.semester}
+      `;
+
+      $("#outputArea").html(content);
+    });
+  </script>
+</body>
+</html>

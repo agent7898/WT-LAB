@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Practical Example</title>
+  <!-- Include jQuery from CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    p, ul {
+      width: 60%;
+      margin: 20px auto;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #animateBox {
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      margin: 20px auto;
+      border-radius: 10px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <h2>jQuery Demonstration</h2>
+
+  <!-- Existing Paragraph & List -->
+  <p id="myPara">This is an existing paragraph.</p>
+
+  <ul id="myList">
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+  </ul>
+
+  <!-- Buttons for jQuery actions -->
+  <button id="appendBtn">Append Content</button>
+  <button id="animateBtn">Animate Box</button>
+
+  <!-- Div for animation -->
+  <div id="animateBox"></div>
+
+  <script>
+    $(document).ready(function() {
+      // (a) Append content to paragraph and list
+      $("#appendBtn").click(function() {
+        $("#myPara").append(" <b>This text is appended using jQuery!</b>");
+        $("#myList").append("<li>Appended Item</li>");
+      });
+
+      // (b) Animate: Move and resize div
+      $("#animateBtn").click(function() {
+        $("#animateBox").animate({
+          left: '250px',
+          width: '150px',
+          height: '150px',
+          borderRadius: '50px'
+        }, 1000, function() {
+          // (c) Change color after animation
+          $(this).css("background-color", "lightgreen");
+        });
+      });
+    });
+  </script>
+</body>
+</html>

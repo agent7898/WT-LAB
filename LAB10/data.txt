@@ -1,0 +1,1 @@
+Hello! This is the content loaded using AJAX from a text file.
